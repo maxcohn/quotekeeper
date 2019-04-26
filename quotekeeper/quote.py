@@ -1,6 +1,11 @@
 import os
 import re
 
+"""Class for containing quotes.
+Stores text and author of quote
+
+get_quotes() reads quotes fomr quotes.txt and returns a list of Quote objects
+"""
 class Quote:
     def __init__(self, t, a):
         self.text = t

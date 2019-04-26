@@ -6,6 +6,7 @@ from quotekeeper.quote import Quote
 
 bp = Blueprint('routes', __name__)
 
+# read in all quotes from the file
 all_quotes = Quote.get_quotes()
 
 """Home page that displays quotes. The page lists all quotes and their authors.
@@ -13,6 +14,7 @@ all_quotes = Quote.get_quotes()
 @bp.route('/', methods=['GET'])
 def home(): 
     return render_template('base.html', quotes=all_quotes)
+
 
 """URL to post to to add a new quote. Format of JSON is:
 {
@@ -26,13 +28,12 @@ append the new quote to the file that stores them (quotes.txt)
 @bp.route('/newquote', methods=['POST'])
 def new_quote():
     data = request.get_json()
-    print('===================================================', file=sys.stderr)
-    print(data, file=sys.stderr)
-    print('===================================================', file=sys.stderr)
 
     # extract text and author
     t = data['text']
     a = data['author']
+
+    print(f'New quote: {t}\nSaid by: {a}', file=sys.stderr)
 
     # create new quote and append to all_quotes
     all_quotes.append(Quote(t,a))
