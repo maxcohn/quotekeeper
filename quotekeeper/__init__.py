@@ -2,21 +2,17 @@ import os
 
 from flask import Flask
 
-
+"""App factory function. Create the Flask application. When running the
+application, Flask will automatically find this function and run it,
+starting the application.
+"""
 def create_app():
     # create and configure the app
-    app = Flask(__name__, instance_relative_config=True)
+    app = Flask(__name__)
 
-    # ensure the instance folder exists
-    try:
-        os.makedirs(app.instance_path)
-    except OSError:
-        pass
-
-    # a simple page that says hello
-    @app.route('/')
-    def home():
-        return 'works?'
+    # include blueprints
+    from . import routes
+    app.register_blueprint(routes.bp)
 
     return app
 

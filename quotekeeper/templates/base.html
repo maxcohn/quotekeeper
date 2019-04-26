@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<head>
+    <title>title liam is dumb</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <h1>header liam is dumb</h1>
+    
+    <div class="quotes">
+
+        {% for q in quotes %}
+        <div class="quote">
+            <p>{{ q.text }}</p>
+            <p>{{ q.author }}</p>
+        </div>
+        
+        
+        {% endfor %}
+    </div>
+</body>
+</html>
