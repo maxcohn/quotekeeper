@@ -1,5 +1,6 @@
 from flask import Blueprint, request, render_template
 from os import path
+import random
 import sys
 import re
 from quotekeeper.quote import Quote
@@ -12,8 +13,10 @@ all_quotes = Quote.get_quotes()
 """Home page that displays quotes. The page lists all quotes and their authors.
 """
 @bp.route('/', methods=['GET'])
-def home(): 
-    return render_template('base.html', quotes=all_quotes)
+def home():
+    randomized_quotes = [q for q in all_quotes]
+    random.shuffle(randomized_quotes)
+    return render_template('base.html', quotes=randomized_quotes)
 
 
 """URL to post to to add a new quote. Format of JSON is:
@@ -28,6 +31,9 @@ append the new quote to the file that stores them (quotes.txt)
 @bp.route('/newquote', methods=['POST'])
 def new_quote():
     data = request.get_json()
+
+    # t = request.form['input-text']
+    # a = request.form['input-author']
 
     # extract text and author
     t = data['text']
