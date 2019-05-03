@@ -3,8 +3,11 @@ import os
 import random
 import sys
 import re
-from quotekeeper.quote import Quote
-from quotekeeper import quote
+
+# learned something here: need to specify current package if wanting
+# to import a module from current package (using relative imports here)
+from .quote import Quote
+from . import quote
 
 
 bp = Blueprint('routes', __name__)
