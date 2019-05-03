@@ -31,6 +31,7 @@ class Quote:
 
         # apply regex to all lines to get quotes and authors
         for i in all_lines:
+            # TODO handle case where no match is made
             m = regex.match(i)
             q = m.group(1).strip()
             a = m.group(2).strip()

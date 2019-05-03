@@ -1,5 +1,5 @@
 from flask import Blueprint, request, render_template
-from os import path
+import os
 import random
 import sys
 import re
@@ -8,7 +8,7 @@ from quotekeeper.quote import Quote
 bp = Blueprint('routes', __name__)
 
 # read in all quotes from the file
-all_quotes = Quote.get_quotes()
+all_quotes = Quote.get_quotes() # TODO move this into __init__
 
 """Home page that displays quotes. The page lists all quotes and their authors.
 """
@@ -45,6 +45,9 @@ def new_quote():
     all_quotes.append(Quote(t,a))
 
     #TODO add to quotes.txt
+    filepath = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "quotes.txt"))
+    with open(filepath, 'a+') as f:
+        f.write(f'\n{t}|{a}')
 
     #print(all_quotes.)
     return "return"
