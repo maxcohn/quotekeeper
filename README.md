@@ -66,7 +66,4 @@ add quote form anywhere will be abused by my friends.
 
 # TODO
 
-Readjust code so adding new quote to list is better
-* maybe make `Quotes` class? list of quotes?
-
-Move reading in files into \_\_init\_\_
+Nothing right now
