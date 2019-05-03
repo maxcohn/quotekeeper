@@ -16,6 +16,12 @@ $(document).ready(function(){
             text: $("#input-text").val(),
             author: $("#input-author").val()
         };
+
+		// check if any text is empty
+        if(data.text === '' || data.author === ''){
+			alert('Text or author is empty');
+        	return;
+        }
     
         fetch('/newquote', {
             method: 'POST', // or 'PUT'
@@ -24,5 +30,7 @@ $(document).ready(function(){
               'Content-Type': 'application/json'
             }
         });
+
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
     });
 });

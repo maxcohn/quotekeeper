@@ -14,3 +14,7 @@ body{
 .author{
     font-style: italic;
 }
+
+.submit-quote{
+    padding-top: 10px;
+}
