@@ -4,16 +4,21 @@ import random
 import sys
 import re
 from quotekeeper.quote import Quote
+from quotekeeper import quote
+
 
 bp = Blueprint('routes', __name__)
 
 # read in all quotes from the file
-all_quotes = Quote.get_quotes() # TODO move this into __init__
+all_quotes = quote.read_quotes()
+
+
 
 """Home page that displays quotes. The page lists all quotes and their authors.
 """
 @bp.route('/', methods=['GET'])
 def home():
+    # TODO maybe randomize whole list instead of making new one??
     randomized_quotes = [q for q in all_quotes]
     random.shuffle(randomized_quotes)
     return render_template('base.html', quotes=randomized_quotes)
@@ -32,25 +37,22 @@ append the new quote to the file that stores them (quotes.txt)
 def new_quote():
     data = request.get_json()
 
-    # t = request.form['input-text']
-    # a = request.form['input-author']
-
     # extract text and author
     t = data['text']
     a = data['author']
 
+    # add quote to list and file
+    add_quote(t, a)
+
+    return "return"
+
+
+def add_quote(t: str, a: str):
     print(f'New quote: {t}\nSaid by: {a}', file=sys.stderr)
 
     # create new quote and append to all_quotes
     all_quotes.append(Quote(t,a))
 
-    #TODO add to quotes.txt
-    filepath = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "quotes.txt"))
-    with open(filepath, 'a+') as f:
+    #add to quotes.txt
+    with open(quote.FILE_PATH, 'a+') as f:
         f.write(f'\n{t}|{a}')
-
-    #print(all_quotes.)
-    return "return"
-
-
-
