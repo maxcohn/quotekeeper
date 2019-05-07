@@ -23,8 +23,12 @@ def read_quotes():
 
     # apply regex to all lines to get quotes and authors
     for i in all_lines:
-        # TODO handle case where no match is made
         m = regex.match(i)
+
+        # if line wasn't matched, just skip over it
+        if m == None:
+            continue
+
         q = m.group(1).strip()
         a = m.group(2).strip()
         all_quotes.append(Quote(q, a))

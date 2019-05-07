@@ -65,5 +65,3 @@ add quote form anywhere will be abused by my friends.
 
 
 # TODO
-
-Nothing right now
