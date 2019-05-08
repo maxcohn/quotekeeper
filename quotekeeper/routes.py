@@ -27,6 +27,10 @@ def home():
     return render_template('base.html', quotes=randomized_quotes)
 
 
+@bp.route('/submitquote', methods=['GET'])
+def submitequote():
+    return render_template('submitquote.html')
+
 """URL to post to to add a new quote. Format of JSON is:
 {
     text:'',

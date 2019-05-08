@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 <head>
-    <title>title liam is dumb</title>
+    <title>Submit a new quote</title>
     <meta name="viewport" content="width=device-width">
 
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
@@ -12,19 +12,14 @@
 <body>
 
     <h1>place to do quotes</h1>
-    
 
-    
-    <div class="quotes">
 
-        {% for q in quotes %}
-        <div class="quote">
-            <p class="text">{{ q.text }}</p>
-            <pre class="author">    {{ q.author }}</pre>
-        </div>
-        {% endfor %}
-        
+    <div class="submit-quote">
+        <input id="input-text" placeholder="Quote" />
+        <input id="input-author" placeholder="Who said it?" />
+        <button id="send">Send</button>
     </div>
+    
 
 
 </body>

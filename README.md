@@ -26,7 +26,9 @@ the quotes with a simple format. More about the format [here](#quote-format)
 ## Routes:
 * '/newquote' [POST] - Route to post new quotes to to be added to the database (or json???)
 
-* '/' [GET] - Home page that display quotes, also has option to add quotes
+* '/' [GET] - Home page that display quotes
+
+* '/submitquote' [GET] - Page that has form to submit quotes
 
 ## Quote Format
 
@@ -58,10 +60,13 @@ the way Python handles modules and packages. This project led me to learning
 what those words mean to Python and how to use each of them, which will
 definitely come in handy.
 
-## Potential changes
+## FAQ
 
-I may add a password for sending quotes just because I know the ability to
-add quote form anywhere will be abused by my friends.
+#### Why is there a separate page to submit quotes?
+
+I did this as a rudimentary way of making quote submission exclusive to those
+who are participants in the website. This way when someone stumbles upon it,
+there is no greifing that can be done from the homepage.
 
 
 # TODO
