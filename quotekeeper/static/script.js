@@ -31,6 +31,6 @@ $(document).ready(function(){
             }
         });
 
-        document.body.scrollTop = document.documentElement.scrollTop = 0;
+        location.reload(true);
     });
 });
