@@ -67,6 +67,3 @@ definitely come in handy.
 I did this as a rudimentary way of making quote submission exclusive to those
 who are participants in the website. This way when someone stumbles upon it,
 there is no greifing that can be done from the homepage.
-
-
-# TODO
