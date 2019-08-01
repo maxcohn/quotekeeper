@@ -1,37 +1,23 @@
 import os
 import re
+import sqlite3
 
 # path to file in which quotes are stored
-FILE_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "quotes.txt"))
+FILE_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "quotes.db"))
+
+# create database connection
+conn = sqlite3.connect(FILE_PATH)
+cursor = conn.cursor()
 
 """Reads in quote from quotes file given at FILE_PATH and returns a list of
 Quote objects
 """
 def read_quotes():
-    
-    all_lines = None
+    # Read in everything from the database
+    cursor.execute("select * from quotes")
 
-    # read in all raw data
-    with open(FILE_PATH, "r") as f:
-        all_lines = f.readlines()
-    
     # list of Quote objects
-    all_quotes = []
-
-    # regex to capture each side of '|'
-    regex = re.compile(r'(.*)\|(.*)')
-
-    # apply regex to all lines to get quotes and authors
-    for i in all_lines:
-        m = regex.match(i)
-
-        # if line wasn't matched, just skip over it
-        if m == None:
-            continue
-
-        q = m.group(1).strip()
-        a = m.group(2).strip()
-        all_quotes.append(Quote(q, a))
+    all_quotes = [Quote(t[0], t[1]) for t in cursor.fetchall()]
 
     return all_quotes
 

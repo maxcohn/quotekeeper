@@ -3,3 +3,5 @@ __pychache__/
 quotes.txt
 quotekeeper/__pychache__/
 venv/
+TODO
+*.db

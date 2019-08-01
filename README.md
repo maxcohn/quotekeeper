@@ -16,6 +16,8 @@ way to solve those problems.
 
 1. Navigate into a directory with the `quotekeeper` package.
 
+TODO
+
 2. In that directory, there should be a file called `quotes.txt`. This stores
 the quotes with a simple format. More about the format [here](#quote-format)
 
@@ -24,11 +26,14 @@ the quotes with a simple format. More about the format [here](#quote-format)
 4. You should be good!
 
 ## Routes:
-* '/newquote' [POST] - Route to post new quotes to to be added to the database (or json???)
+* '/newquote' [POST] - Route to post new quotes to to be added to the database
 
 * '/' [GET] - Home page that display quotes
 
 * '/submitquote' [GET] - Page that has form to submit quotes
+
+
+TODO
 
 ## Quote Format
 

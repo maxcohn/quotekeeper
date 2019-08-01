@@ -61,5 +61,6 @@ def add_quote(t: str, a: str):
     all_quotes.append(Quote(t,a))
 
     #add to quotes.txt
+    #TODO CHANGE
     with open(quote.FILE_PATH, 'a+') as f:
         f.write(f'\n{t}|{a}')
