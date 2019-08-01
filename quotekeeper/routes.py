@@ -56,11 +56,10 @@ def new_quote():
 
 def add_quote(t: str, a: str):
     print(f'New quote: {t}\nSaid by: {a}', file=sys.stderr)
+    
+    # insert the quote into the database
+    quote.add_quote_db(t, a)
 
     # create new quote and append to all_quotes
     all_quotes.append(Quote(t,a))
 
-    #add to quotes.txt
-    #TODO CHANGE
-    with open(quote.FILE_PATH, 'a+') as f:
-        f.write(f'\n{t}|{a}')

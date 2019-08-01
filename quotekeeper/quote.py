@@ -5,22 +5,27 @@ import sqlite3
 # path to file in which quotes are stored
 FILE_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "quotes.db"))
 
-# create database connection
-conn = sqlite3.connect(FILE_PATH)
-cursor = conn.cursor()
-
 """Reads in quote from quotes file given at FILE_PATH and returns a list of
 Quote objects
 """
 def read_quotes():
-    # Read in everything from the database
-    cursor.execute("select * from quotes")
+    with sqlite3.connect(FILE_PATH) as conn:
+        # create database connection
+        cursor = conn.cursor()
+        
+        # Read in everything from the database
+        cursor.execute("select * from quotes")
 
-    # list of Quote objects
-    all_quotes = [Quote(t[0], t[1]) for t in cursor.fetchall()]
+        # list of Quote objects
+        all_quotes = [Quote(t[0], t[1]) for t in cursor.fetchall()]
 
-    return all_quotes
+        return all_quotes
 
+def add_quote_db(t: str, a: str):
+    with sqlite3.connect(FILE_PATH) as conn:
+        cursor = conn.cursor()
+        cursor.execute("insert into quotes (quote, author) values (?, ?)", (t, a))
+        conn.commit()
 
 """Class for containing quotes.
 Stores text and author of quote
