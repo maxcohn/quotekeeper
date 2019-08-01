@@ -14,16 +14,13 @@ way to solve those problems.
 
 ## How to run
 
-1. Navigate into a directory with the `quotekeeper` package.
+1. Run the Flask app as you usually would
 
-TODO
+2. A new file will be created in the root directory of the project (`quotes.db`)
 
-2. In that directory, there should be a file called `quotes.txt`. This stores
-the quotes with a simple format. More about the format [here](#quote-format)
+3. This file is the SQLite database that the app uses to keep track of quotes
 
-3. Run the Flask app with `FLASK_APP=quotekeeper` as an environment variable.
-
-4. You should be good!
+4. There is no special setup for the database, the app should handle everything.
 
 ## Routes:
 * '/newquote' [POST] - Route to post new quotes to to be added to the database
@@ -32,25 +29,11 @@ the quotes with a simple format. More about the format [here](#quote-format)
 
 * '/submitquote' [GET] - Page that has form to submit quotes
 
+## Quote storage
 
-TODO
+I chose to store the quotes in a SQLite database for a few reasons. They're
+fast, efficient, and easy in Python.
 
-## Quote Format
-
-I considered using a database for this, but I figured that there isn't much
-of a reason considering there are no lookups, just displaying of all content.
-Adding a database seemed like it would only cause extra complication for
-a project as small as this.
-
-Performance shouldn't be much of a concern considering the quotes are only
-ever read from the file on startup.
-
-The format looks like this:
-```
-the actual quote|the author/context of the quote
-```
-
-White space between the pipe and either side doesn't matter.
 
 ## What did I learn from this project?
 
