@@ -4,6 +4,5 @@ setup(
     name='quotekeeper',
     packages=['quotekeeper'],
     inclue_package_data=True,
-    install_requores=['flask']
-        
+    install_requies=['flask']
 )

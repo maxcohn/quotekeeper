@@ -34,7 +34,6 @@ way to solve those problems.
 I chose to store the quotes in a SQLite database for a few reasons. They're
 fast, efficient, and easy in Python.
 
-
 ## What did I learn from this project?
 
 I had never really used Flask for anything more than one file projects, so
@@ -48,7 +47,21 @@ the way Python handles modules and packages. This project led me to learning
 what those words mean to Python and how to use each of them, which will
 definitely come in handy.
 
-## FAQ
+## Files explained
+
+* `setup.py` - Setuptools script
+
+* `quotekeeper.wsgi` - WSGI file, should be used to run on WSGI server
+
+* `quote.py` - Quote object and helper functions for reading and writing quotes
+
+* `routes.py` - Routes and code associated with handling all route in the app
+
+* `__init__.py` - Handles WSGI app creation
+
+* `static/` - Directory for static content
+
+* `templates/` - Directory of Jinja templates
 
 #### Why is there a separate page to submit quotes?
 
