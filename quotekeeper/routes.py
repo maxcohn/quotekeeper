@@ -16,25 +16,27 @@ bp = Blueprint('routes', __name__)
 all_quotes = quote.all_quotes()
 
 
-
-"""Home page that displays quotes. The page lists all quotes and their authors.
-"""
 @bp.route('/', methods=['GET'])
 def home():
-    # TODO maybe randomize whole list instead of making new one??
-    randomized_quotes = [q for q in all_quotes]
-    random.shuffle(randomized_quotes)
-    return render_template('base.html', quotes=randomized_quotes)
+    """
+    Home Page
+
+    Renders a page with all quotes displayed.
+    """
+    random.shuffle(all_quotes)
+    return render_template('base.html', quotes=all_quotes)
 
 
 @bp.route('/submitquote', methods=['GET'])
-def submitequote():
+def submit_quote():
+    """Page that will has a form to submit quotes"""
     return render_template('submitquote.html')
 
 
 @bp.route('/newquote', methods=['POST'])
 def new_quote():
-    """URL to post to to add a new quote. Format of JSON is:
+    """
+    URL to post to to add a new quote. Format of JSON is:
     
     {
         text:'',
@@ -53,18 +55,27 @@ def new_quote():
     # add quote to list and file
     add_quote(t, a)
 
-    return "return" #TODO remove this
+    return "SUCCESS"
 
 
 @bp.route('/filter/name/<name>', methods=['GET'])
 def filter_name(name):
+    """
+    Renders home page, but filters quotes that contain `name` in the `author`
+    section
+    """
     return render_template('base.html', quotes=quote.filter_quote_name(name))
 
 @bp.route('/filter/text/<text>', methods=['GET'])
 def filter_text(text):
+    """
+    Renders home page, but filters quotes that contain `text` in the `quote`
+    section
+    """
     return render_template('base.html', quotes=quote.filter_quote_text(text))
 
 def add_quote(t: str, a: str):
+    """Adds a new quote to the database and local list"""
     print(f'New quote: {t}\nSaid by: {a}', file=sys.stderr)
     
     # insert the quote into the database
