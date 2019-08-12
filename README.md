@@ -29,6 +29,12 @@ way to solve those problems.
 
 * '/submitquote' [GET] - Page that has form to submit quotes
 
+* '/filter/name/<name\>' [GET] - Same as home page, but filters for quotes that
+contain `name` in the author section
+
+* '/filter/text/<text\>' [GET] - Same as homepage, but filters for quotes that
+contain `text` in the text section
+
 ## Quote storage
 
 I chose to store the quotes in a SQLite database for a few reasons. They're
