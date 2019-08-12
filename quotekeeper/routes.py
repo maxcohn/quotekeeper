@@ -13,8 +13,6 @@ from . import quote
 bp = Blueprint('routes', __name__)
 
 # read in all quotes from the file
-all_quotes = quote.all_quotes()
-
 
 @bp.route('/', methods=['GET'])
 def home():
@@ -23,6 +21,7 @@ def home():
 
     Renders a page with all quotes displayed.
     """
+    all_quotes = quote.all_quotes()
     random.shuffle(all_quotes)
     return render_template('base.html', quotes=all_quotes)
 
@@ -82,5 +81,5 @@ def add_quote(t: str, a: str):
     quote.add_quote_db(t, a)
 
     # create new quote and append to all_quotes
-    all_quotes.append(Quote(t,a))
+    #all_quotes.append(Quote(t,a))
 
