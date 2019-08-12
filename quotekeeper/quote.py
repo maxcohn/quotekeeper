@@ -15,13 +15,6 @@ def all_quotes():
         # create database connection
         cursor = conn.cursor()
         
-        # check if the 'quotes' table exists
-        cursor.execute("select count(*) from sqlite_master where type='table' and name='quotes'")
-        if cursor.fetchone()[0] == 0:
-            # table doesn't exist, so create one
-            cursor.execute("create table quotes (quote text, author text)")
-            cursor.commit()
-
         # Read in everything from the database
         cursor.execute("select * from quotes")
 
@@ -44,13 +37,6 @@ def filter_quote_name(name: str):
         # create database connection
         cursor = conn.cursor()
         
-        # check if the 'quotes' table exists
-        cursor.execute("select count(*) from sqlite_master where type='table' and name='quotes'")
-        if cursor.fetchone()[0] == 0:
-            # table doesn't exist, so create one
-            cursor.execute("create table quotes (quote text, author text)")
-            cursor.commit()
-        
         # Add wildcards for db pattern matching
         name = f"%{name}%"
 
@@ -68,14 +54,9 @@ def filter_quote_text(text: str):
         # create database connection
         cursor = conn.cursor()
         
-        # check if the 'quotes' table exists
-        cursor.execute("select count(*) from sqlite_master where type='table' and name='quotes'")
-        if cursor.fetchone()[0] == 0:
-            # table doesn't exist, so create one
-            cursor.execute("create table quotes (quote text, author text)")
-            cursor.commit()
-        
+        # Add wildcards for db pattern matching
         text = f"%{text}%"
+        
         # Read in everything from the database
         cursor.execute("select * from quotes where quote like ?", (text,))
 
@@ -89,7 +70,7 @@ def filter_quote_text(text: str):
 class Quote:
     """
     Class for containing quotes.
-    
+
     Stores text and author of quote
     """
     def __init__(self, t, a):
