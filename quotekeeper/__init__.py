@@ -20,11 +20,13 @@ def create_app():
         if cursor.fetchone()[0] == 0:
             # table doesn't exist, so create one
             cursor.execute("create table quotes (quote text, author text)")
-            cursor.commit()
+            conn.commit()
 
     # include blueprints
     from . import routes
     app.register_blueprint(routes.bp)
 
+
+    print("App beginning")
     return app
 
