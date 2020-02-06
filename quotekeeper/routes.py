@@ -1,14 +1,17 @@
-from flask import Blueprint, request, render_template
+from flask import Blueprint, request, render_template, g
 import os
 import random
 import sys
 import re
+import sqlite3
 
 # learned something here: need to specify current package if wanting
 # to import a module from current package (using relative imports here)
 from .quote import Quote
 from . import quote
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATABASE_PATH = os.path.join(BASE_DIR, "quotes.db")
 
 bp = Blueprint('routes', __name__)
 
@@ -21,7 +24,10 @@ def home():
 
     Renders a page with all quotes displayed.
     """
-    all_quotes = quote.all_quotes()
+    cur = get_db().cursor()
+    all_quotes = quote.all_quotes(cur)
+    cur.close()
+
     random.shuffle(all_quotes)
     return render_template('base.html', quotes=all_quotes)
 
@@ -63,7 +69,10 @@ def filter_name(name):
     Renders home page, but filters quotes that contain `name` in the `author`
     section
     """
-    return render_template('base.html', quotes=quote.filter_quote_name(name))
+    cur = get_db()
+    quotes = quote.filter_quote_name(cur, name)
+    cur.close()
+    return render_template('base.html', quotes=quotes)
 
 @bp.route('/filter/text/<text>', methods=['GET'])
 def filter_text(text):
@@ -71,15 +80,37 @@ def filter_text(text):
     Renders home page, but filters quotes that contain `text` in the `quote`
     section
     """
-    return render_template('base.html', quotes=quote.filter_quote_text(text))
+
+    cur = get_db().cursor()
+
+    quotes = quote.filter_quote_text(cur, text)
+
+    cur.close()
+    return render_template('base.html', quotes=quotes)
 
 def add_quote(t: str, a: str):
     """Adds a new quote to the database and local list"""
-    print(f'New quote: {t}\nSaid by: {a}', file=sys.stderr)
-    
+
+    cur = get_db().cursor()
+
     # insert the quote into the database
-    quote.add_quote_db(t, a)
+    quote.add_quote_db(cur, t, a)
+
+    cur.close()
 
     # create new quote and append to all_quotes
     #all_quotes.append(Quote(t,a))
 
+
+
+# get database from context
+def get_db():
+    db = getattr(g, '_database', None)
+    if db is None:
+        db = g._database = sqlite3.connect(DATABASE_PATH)
+    return db
+
+
+
+
+#DATABASE_PATH = 'main.db'

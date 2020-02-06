@@ -1,20 +1,37 @@
 
 body{
     font-family: Arial, Helvetica, sans-serif;
-    margin-left: 10px;
-    margin-right: 10px;
+    margin-left: 5px;
 }
 
 .quote{
     font-family: Arial;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     border-radius: 5px;
-    padding: 2px 16px;
+    padding: 2px 2px;
     display: inline-block;
+
+    
 }
+
+@media only screen and (max-width: 768px) {
+    .quote {
+        width: 100%;
+        word-wrap: normal;
+
+    }
+}
+
+.author .text {
+    margin: 2px;
+    word-wrap: normal;
+}
+
 
 .author{
     font-style: italic;
+    font-family: 'Courier New', Courier, monospace;
+    
 }
 
 .submit-quote{

@@ -1,69 +1,56 @@
 import os
 import re
 import sqlite3
-
-# path to file in which quotes are stored
-FILE_PATH = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "quotes.db"))
+from sqlite3 import Cursor
 
 
-def all_quotes():
+def all_quotes(cur: Cursor):
     """
     Reads in quote from quotes file given at FILE_PATH and returns a list of
     Quote objects
     """
-    with sqlite3.connect(FILE_PATH) as conn:        
-        # create database connection
-        cursor = conn.cursor()
-        
-        # Read in everything from the database
-        cursor.execute("select * from quotes")
 
-        # list of Quote objects
-        all_quotes = [Quote(t[0], t[1]) for t in cursor.fetchall()]
+    # Read in everything from the database
+    cur.execute("select * from quotes")
 
-        return all_quotes
+    # list of Quote objects
+    all_quotes = [Quote(t[0], t[1]) for t in cur.fetchall()]
+
+    return all_quotes
 
 
-def add_quote_db(t: str, a: str):
+def add_quote_db(cur: Cursor, t: str, a: str):
     """Adds a new quote to the database"""
-    with sqlite3.connect(FILE_PATH) as conn:
-        cursor = conn.cursor()
-        cursor.execute("insert into quotes (quote, author) values (?, ?)", (t, a))
-        conn.commit()
+    cur.execute("insert into quotes (quote, author) values (?, ?)", (t, a))
 
-def filter_quote_name(name: str):
+def filter_quote_name(cur: Cursor, name: str):
     """Filters quotes that contain `name` in the author section"""
-    with sqlite3.connect(FILE_PATH) as conn:        
-        # create database connection
-        cursor = conn.cursor()
+
         
-        # Add wildcards for db pattern matching
-        name = f"%{name}%"
+    # Add wildcards for db pattern matching
+    name = f"%{name}%"
 
-        # Read in everything from the database
-        cursor.execute("select * from quotes where author like ?", (name,))
+    # Read in everything from the database
+    cur.execute("select quote, author from quotes where author like ?", (name,))
 
-        # list of Quote objects
-        all_quotes = [Quote(t[0], t[1]) for t in cursor.fetchall()]
+    # list of Quote objects
+    all_quotes = [Quote(t[0], t[1]) for t in cur.fetchall()]
 
-        return all_quotes
+    return all_quotes
 
-def filter_quote_text(text: str):
+def filter_quote_text(cur: Cursor, text: str):
     """Filters quotes that contain `text` in the quote section"""
-    with sqlite3.connect(FILE_PATH) as conn:        
-        # create database connection
-        cursor = conn.cursor()
-        
-        # Add wildcards for db pattern matching
-        text = f"%{text}%"
-        
-        # Read in everything from the database
-        cursor.execute("select * from quotes where quote like ?", (text,))
 
-        # list of Quote objects
-        all_quotes = [Quote(t[0], t[1]) for t in cursor.fetchall()]
+    # Add wildcards for db pattern matching
+    text = f"%{text}%"
+    
+    # Read in everything from the database
+    cur.execute("select quote, author from quotes where quote like ?", (text,))
 
-        return all_quotes
+    # list of Quote objects
+    all_quotes = [Quote(t[0], t[1]) for t in cur.fetchall()]
+
+    return all_quotes
 
 
 

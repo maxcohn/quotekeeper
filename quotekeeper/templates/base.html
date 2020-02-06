@@ -11,16 +11,14 @@
 </head>
 <body>
 
-    <h1>place to do quotes</h1>
-    
+    <h1>Do you have no shame?</h1>
 
-    
     <div class="quotes">
 
         {% for q in quotes %}
         <div class="quote">
             <p class="text">{{ q.text }}</p>
-            <pre class="author">    {{ q.author }}</pre>
+            <p class="author">{{ q.author }}</p>
         </div>
         {% endfor %}
         
