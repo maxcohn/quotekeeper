@@ -69,7 +69,7 @@ def filter_name(name):
     Renders home page, but filters quotes that contain `name` in the `author`
     section
     """
-    cur = get_db()
+    cur = get_db().cursor()
     quotes = quote.filter_quote_name(cur, name)
     cur.close()
     return render_template('base.html', quotes=quotes)

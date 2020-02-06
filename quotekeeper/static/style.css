@@ -1,24 +1,37 @@
 
 body{
     font-family: Arial, Helvetica, sans-serif;
-    margin-left: 5px;
+    /*margin-left: 5px;*/
 }
 
 .quote{
     font-family: Arial;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     border-radius: 5px;
-    padding: 2px 2px;
+    padding: .25em .5em;
     display: inline-block;
 
     
 }
 
 @media only screen and (max-width: 768px) {
-    .quote {
+    .quotes {
         width: 100%;
         word-wrap: normal;
 
+    }
+    .quote {
+        margin-top: 1em;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    #search-box {
+        box-sizing: border-box;
+        /*width:100%;*/
+    }
+    .search {
+        width:100%;
+        white-space: nowrap;
     }
 }
 
@@ -36,4 +49,9 @@ body{
 
 .submit-quote{
     padding-top: 10px;
+}
+
+
+footer {
+    margin:1em;
 }
