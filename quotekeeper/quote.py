@@ -11,7 +11,7 @@ def all_quotes(cur: Cursor):
     """
 
     # Read in everything from the database
-    cur.execute("select * from quotes")
+    cur.execute("select quote, author from quotes")
 
     # list of Quote objects
     all_quotes = [Quote(t[0], t[1]) for t in cur.fetchall()]
@@ -22,6 +22,7 @@ def all_quotes(cur: Cursor):
 def add_quote_db(cur: Cursor, t: str, a: str):
     """Adds a new quote to the database"""
     cur.execute("insert into quotes (quote, author) values (?, ?)", (t, a))
+
 
 def filter_quote_name(cur: Cursor, name: str):
     """Filters quotes that contain `name` in the author section"""

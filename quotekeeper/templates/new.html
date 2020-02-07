@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+<head>
+    <title>Submit a new quote</title>
+    <meta name="viewport" content="width=device-width">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function(){
+            // on search click
+            document.querySelector('#send').onclick = () => {
+                console.log('Sending POST');
+                var data = {
+                    text: document.querySelector("#input-text").value.trim(),
+                    author: document.querySelector("#input-author").value.trim()
+                };
+        
+                // check if any text is empty
+                if(data.text === '' || data.author === ''){
+                    alert('Text or author is empty');
+                    return;
+                }
+            
+                fetch('/newquote', {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers:{
+                      'Content-Type': 'application/json'
+                    }
+                }).then(() => window.open(`/`, '_self'));
+                
+            };
+        });
+    </script>
+    
+        
+</head>
+<body>
+
+    <h1>place to do quotes</h1>
+
+
+    <div class="submit-quote">
+        <input id="input-text" placeholder="Quote" />
+        <input id="input-author" placeholder="Who said it?" />
+        <button id="send">Send</button>
+    </div>
+    
+
+
+</body>
+</html>

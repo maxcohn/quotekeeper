@@ -32,10 +32,10 @@ def home():
     return render_template('base.html', quotes=all_quotes)
 
 
-@bp.route('/submitquote', methods=['GET'])
+@bp.route('/new', methods=['GET'])
 def submit_quote():
     """Page that will has a form to submit quotes"""
-    return render_template('submitquote.html')
+    return render_template('new.html')
 
 
 @bp.route('/newquote', methods=['POST'])
@@ -57,10 +57,15 @@ def new_quote():
     t = data['text']
     a = data['author']
 
-    # add quote to list and file
-    add_quote(t, a)
+    print(f'{t}, said by {a}', flush=True)
 
-    return "SUCCESS"
+    # insert the quote into the database
+    cur = get_db().cursor()
+    quote.add_quote_db(cur, t, a)
+    cur.close()
+    get_db().commit()
+
+    return ""
 
 
 @bp.route('/filter/name/<name>', methods=['GET'])
@@ -87,19 +92,6 @@ def filter_text(text):
 
     cur.close()
     return render_template('base.html', quotes=quotes)
-
-def add_quote(t: str, a: str):
-    """Adds a new quote to the database and local list"""
-
-    cur = get_db().cursor()
-
-    # insert the quote into the database
-    quote.add_quote_db(cur, t, a)
-
-    cur.close()
-
-    # create new quote and append to all_quotes
-    #all_quotes.append(Quote(t,a))
 
 
 

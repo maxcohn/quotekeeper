@@ -55,10 +55,6 @@ definitely come in handy.
 
 ## Files explained
 
-* `setup.py` - Setuptools script
-
-* `quotekeeper.wsgi` - WSGI file, should be used to run on WSGI server
-
 * `quote.py` - Quote object and helper functions for reading and writing quotes
 
 * `routes.py` - Routes and code associated with handling all route in the app
@@ -80,3 +76,4 @@ there is no greifing that can be done from the homepage.
 * Clean up everything. This was made when I was new to web frameworks and databases,
 so this needs a good refactoring
 
+* Figure out how to design search so that it has the option to search by text
