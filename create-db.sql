@@ -1,0 +1,6 @@
+BEGIN TRANSACTION;
+CREATE TABLE IF NOT EXISTS `quotes` (
+	`quote`	TEXT,
+	`author`	TEXT
+);
+COMMIT;

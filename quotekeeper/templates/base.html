@@ -32,8 +32,8 @@
 
         {% for q in quotes %}
         <div class="quote">
-            <p class="text">{{ q.text }}</p>
-            <p class="author">{{ q.author }}</p>
+            <p class="text">{{ q[0] }}</p>
+            <p class="author">{{ q[1] }}</p>
         </div>
         {% endfor %}
         

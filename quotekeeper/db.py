@@ -14,7 +14,7 @@ def all_quotes(cur: Cursor):
     cur.execute("select quote, author from quotes")
 
     # list of Quote objects
-    all_quotes = [Quote(t[0], t[1]) for t in cur.fetchall()]
+    all_quotes = [(quote[0], quote[1]) for quote in cur.fetchall()]
 
     return all_quotes
 
@@ -35,7 +35,7 @@ def filter_quote_name(cur: Cursor, name: str):
     cur.execute("select quote, author from quotes where author like ?", (name,))
 
     # list of Quote objects
-    all_quotes = [Quote(t[0], t[1]) for t in cur.fetchall()]
+    all_quotes = [(quote[0], quote[1]) for quote in cur.fetchall()]
 
     return all_quotes
 
@@ -49,19 +49,6 @@ def filter_quote_text(cur: Cursor, text: str):
     cur.execute("select quote, author from quotes where quote like ?", (text,))
 
     # list of Quote objects
-    all_quotes = [Quote(t[0], t[1]) for t in cur.fetchall()]
+    all_quotes = [(quote[0], quote[1]) for quote in cur.fetchall()]
 
     return all_quotes
-
-
-
-class Quote:
-    """
-    Class for containing quotes.
-
-    Stores text and author of quote
-    """
-    def __init__(self, t, a):
-        self.text = t
-        self.author = a
-
